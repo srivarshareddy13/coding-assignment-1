@@ -4,7 +4,7 @@ const {open} = require('sqlite');
 const sqlite3 = require('sqlite3');
 const format = require('date-fns/format');
 const isMatch = require('date-fns/isMatch');
-const isValid = request('date-fns/isValid');
+const isValid = require('date-fns/isValid');
 
 const app = express();
 const dbPath = path.join(__dirname, 'todoApplication.db')
@@ -125,7 +125,7 @@ app.get('/todos/', async (request, response) => {
       getQuery = `
           SELECT *
           FROM todo
-          WHERE todo LIKE '%{search_q}%';
+          WHERE todo LIKE '%${search_q}%';
         `
       data = await db.all(getQuery)
       response.send(data.map(each => convertTO(each)))
